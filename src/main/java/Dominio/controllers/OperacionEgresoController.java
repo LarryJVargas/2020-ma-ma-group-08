@@ -7,11 +7,13 @@ import Dominio.model.Provincia;
 import Dominio.repositories.Repositorio;
 import Dominio.repositories.RepositorioDeEgresos;
 import Dominio.repositories.RepositorioDeUsuarios;
+import Dominio.repositories.daos.DAO;
 import Dominio.repositories.factories.FactoryRepositorio;
 import Dominio.repositories.factories.FactoryRepositorioEgresos;
 import Dominio.repositories.factories.FactoryRepositorioUsuarios;
 import Dominio.services.ServicioML;
 import com.google.gson.Gson;
+//import com.sun.org.apache.xpath.internal.operations.Or;
 import entities.*;
 import scala.util.parsing.combinator.testing.Str;
 import spark.ModelAndView;
@@ -36,12 +38,24 @@ public class OperacionEgresoController {
         Map<String, Object> parametros = new HashMap<>();
         RepositorioDeUsuarios repoUsuarios = FactoryRepositorioUsuarios.get();
 
+
+
         ServicioML servicioML = ServicioML.instancia();
         List<Moneda> monedas = servicioML.listadoDeMonedas();
         List<Pais> paises = servicioML.listadoDePaises();
 
         Usuario usuario = repoUsuarios.buscar(request.session().attribute("id"));
-        List<OperacionEgreso> egresos = usuario.getEgresos();
+
+        Organizacion organizacion = usuario.getEntidadJuridica().getOrganizacion();
+
+        List<Usuario> usuariosOrg = organizacion.getUsuarios();
+
+        List<OperacionEgreso> egresos = new ArrayList<>();
+
+        for (Usuario u: usuariosOrg){
+            egresos.addAll(u.getEgresos());
+        }
+
         parametros.put("opEg", egresos);
         parametros.put("moneda", monedas);
         parametros.put("pais", paises);
@@ -107,15 +121,28 @@ public class OperacionEgresoController {
         double valorTotalOp = 0;
 
         for (int i = 1; i <= Integer.parseInt(contador); i++) {
+            String tipoArticulo = request.queryParams("tipoArticulo");
+
+
 
             String nombreProducto = request.queryParams("nombreProducto" + i);
             String cantidad = request.queryParams("cantidad" + i);
             String precio = request.queryParams("precio" + i);
+            String descripcion = request.queryParams("descripcion" + i);
             String moneda = request.queryParams("moneda");
 
-            Articulo articulo = new Articulo(nombreProducto, Float.parseFloat(precio), "", Integer.parseInt(cantidad));
-            articulo.setMoneda(moneda);
-            articulos.add(articulo);
+            if(tipoArticulo.equals("Producto")){
+                Producto producto = new Producto(nombreProducto,Integer.parseInt(precio),descripcion,Integer.parseInt(cantidad));
+                producto.setMoneda(moneda);
+                articulos.add(producto);
+
+            }else {
+                Servicio servicio = new Servicio(nombreProducto,Integer.parseInt(precio),descripcion,Integer.parseInt(cantidad));
+                servicio.setMoneda(moneda);
+                articulos.add(servicio);
+            }
+
+
         }
 
         for (Articulo a:articulos){
@@ -129,10 +156,6 @@ public class OperacionEgresoController {
     public void agregarProveedor(Request request, OperacionEgreso opEg) {
         String nombreProv = request.queryParams("nombreProveedor");
 
-        String apellidoProv = request.queryParams("apellidoProveedor");
-
-        String dni = request.queryParams("dni");
-
         String pais = request.queryParams("pais");
 
         String provincia = request.queryParams("provincia");
@@ -143,7 +166,7 @@ public class OperacionEgresoController {
 
         String calle = request.queryParams("calle");
 
-        Proveedor proveedor = new Proveedor(nombreProv, apellidoProv, Integer.parseInt(dni));
+        Proveedor proveedor = new Proveedor(nombreProv);
 
         DireccionPostal DP = new DireccionPostal();
         DP.setPais(pais);
@@ -239,14 +262,16 @@ public class OperacionEgresoController {
     public Response agregarDocumentoPdf(Request request, Response response){
         RepositorioDeEgresos repositorioDeEgresos = FactoryRepositorioEgresos.get();
 
-        String rutaDoc = request.queryParams("rutaDoc");
+        String nombre = request.queryParams("rutaDoc");
         String id = request.queryParams("idEgreso");
 
         OperacionEgreso opEg = repositorioDeEgresos.buscar(Integer.parseInt(id));
 
         DocumentoComercial doc = opEg.getDocumentoComercial();
 
-        doc.setRutaDoc(rutaDoc);
+        String ruta = "../resources/uploads/"+nombre;
+
+        doc.setRutaDoc(ruta);
 
         repositorioDeEgresos.modificar(opEg);
 

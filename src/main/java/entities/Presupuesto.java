@@ -33,4 +33,7 @@ public class Presupuesto extends EntidadPersistente{
     public void setArticulosPresupuesto(List<Articulo> articulosPresupuesto) {
         this.articulosPresupuesto = articulosPresupuesto;
     }
+
+    public Presupuesto() {
+    }
 }

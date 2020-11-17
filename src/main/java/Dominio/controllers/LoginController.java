@@ -14,14 +14,14 @@ import java.util.Map;
 public class LoginController {
     public ModelAndView inicio(Request request, Response response){
         Map<String, Object> parametros = new HashMap<>();
-        return new ModelAndView(parametros,"login.hbs");
+        return new ModelAndView(parametros,"index.hbs");
     }
 
 
 
     public ModelAndView error(Request request, Response response){
         Map<String, Object> parametros = new HashMap<>();
-        return new ModelAndView(parametros,"login=error.hbs");
+        return new ModelAndView(parametros,"index=error.hbs");
     }
 
     public Response login(Request request, Response response){

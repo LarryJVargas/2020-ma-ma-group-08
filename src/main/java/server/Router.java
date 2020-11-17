@@ -2,6 +2,8 @@ package server;
 
 import Dominio.controllers.*;
 import Dominio.middleware.AuthMiddleware;
+import entities.Presupuesto;
+import spark.Route;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import utils.BooleanHelper;
@@ -41,6 +43,8 @@ public class Router {
 
         BandejaDeMensajesController bandejaDeMensajesController = new BandejaDeMensajesController();
 
+        PresupuestosController presupuestosController = new PresupuestosController();
+
         Spark.before("/", authMiddleware::verificarSesion);
 
         Spark.get("/login",loginController::inicio,Router.engine);
@@ -63,17 +67,17 @@ public class Router {
 
         Spark.post("/egresos/cargarDocumento", opEgController::agregarDocumentoPdf);
 
-        Spark.get( "/asociar_a_categoria", categorizacionOpsController::inicio, Router.engine);
+        //Spark.get( "/asociar_a_categoria", categorizacionOpsController::inicio, Router.engine);
 
-        Spark.get( "/asociar_a_categoria/:id", categorizacionOpsController::asociar, Router.engine);
+        //Spark.get( "/asociar_a_categoria/:id", categorizacionOpsController::asociar, Router.engine);
 
-        Spark.get("/crear_categoria", categoriaController::inicio, Router.engine);
+        //Spark.get("/crear_categoria", categoriaController::inicio, Router.engine);
 
-        Spark.post("/crear_categoria", categoriaController::crear);
+        //Spark.post("/crear_categoria", categoriaController::crear);
 
-        Spark.delete("/crear_categoria/:descripcion", categoriaController::eliminar);
+        //Spark.delete("/crear_categoria/:descripcion", categoriaController::eliminar);
 
-        Spark.get("/mensajes", authMiddleware::verificarInicioSesion);
+        Spark.before("/mensajes", authMiddleware::verificarInicioSesion);
 
         Spark.get("/mensajes", bandejaDeMensajesController::inicio, Router.engine );
 
@@ -82,5 +86,14 @@ public class Router {
         Spark.before("/ingresos", authMiddleware::verificarInicioSesion);
 
         Spark.post("/ingresos", opInController::cargarIngreso);
+
+        Spark.get("/categorias", categoriaController::inicio, Router.engine);
+
+        Spark.before("/categorias", authMiddleware::verificarInicioSesion);
+
+        Spark.get("/presupuestos", presupuestosController::inicio, Router.engine);
+
+        Spark.before("/presupuestos", authMiddleware::verificarInicioSesion);
+
     }
 }

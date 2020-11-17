@@ -23,4 +23,6 @@ public class Servicio extends Articulo {
     public void setDuracion(int duracion) {
         this.duracion = duracion;
     }
+
+    public Servicio(){}
 }

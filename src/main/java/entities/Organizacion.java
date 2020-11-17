@@ -2,18 +2,19 @@ package entities;
 
 import org.hibernate.annotations.Cascade;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "organizacion")
 public class Organizacion extends EntidadPersistente{
 
     @Column(name = "nombre")
     private String nombre;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Usuario> usuarios;
+    private List<Usuario> usuarios = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<EntidadJuridica> entidadesJuridicas;
@@ -47,6 +48,10 @@ public class Organizacion extends EntidadPersistente{
 
     public void setEntidadesBase(List<EntidadBase> entidadesBase) {
         this.entidadesBase = entidadesBase;
+    }
+
+    public List<Usuario> getUsuarios() {
+        return usuarios;
     }
 
 

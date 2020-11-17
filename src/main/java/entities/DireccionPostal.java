@@ -36,10 +36,10 @@ public class DireccionPostal extends EntidadPersistente {
     public DireccionPostal() {
     }
 
-    public DireccionPostal(String calle, int altura, int piso, String ciudad, String provincia, String pais) {
+    public DireccionPostal(String calle, int altura, Integer piso, String ciudad, String provincia, String pais) {
         this.calle = calle;
         this.altura = altura;
-        this.piso = piso;
+        if (piso != null){ this.piso = piso;}
         this.ciudad = ciudad;
         this.provincia = provincia;
         this.pais = pais;

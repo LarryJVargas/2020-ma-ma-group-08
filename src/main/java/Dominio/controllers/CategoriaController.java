@@ -30,14 +30,14 @@ public class CategoriaController {
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("categorias", categorias);
         parametros.put("criterios", criterios);
-        return new ModelAndView(parametros, "crear_categoria2.hbs");
+        return new ModelAndView(parametros, "categorias.hbs");
     }
 
     public Response crear(Request request, Response response){
         CategoriaOperaciones categoria = new CategoriaOperaciones();
         categoria.setDescripcion(request.queryParams("descripcion"));
         this.repoCategorias.agregar(categoria);
-        response.redirect("/crear_categoria");
+        response.redirect("/categorias.hbs");
         return response;
     }
 

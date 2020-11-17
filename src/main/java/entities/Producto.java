@@ -24,4 +24,6 @@ public class Producto extends Articulo {
     public void setTipoProducto(String tipoProducto) {
         this.tipoProducto = tipoProducto;
     }
+
+    public Producto(){}
 }

@@ -14,19 +14,11 @@ import java.util.Map;
 
 public class BandejaDeMensajesController {
 
-
-
-   // public BandejaDeMensajesController(){
-        //this.repoBandejaDeMensajes = FactoryRepositorio.get(BandejaDeMensajes.class);
-        //this.repoMensajes = FactoryRepositorio.get(Mensaje.class);
-
-    //}
-
     public ModelAndView inicio(Request request, Response response){
 
         Map<String, Object> parametros = new HashMap<>();
         RepositorioDeUsuarios repoUsuarios = FactoryRepositorioUsuarios.get();
-        Usuario usuario = repoUsuarios.buscar(request.session().attribute("id"));;
+        Usuario usuario = repoUsuarios.buscar(request.session().attribute("id"));
         List<Mensaje> mensajes = usuario.getBandejaDeMensajes().getMensajes();
         parametros.put("mensajes",mensajes);
 

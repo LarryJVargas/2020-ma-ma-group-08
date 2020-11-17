@@ -10,6 +10,9 @@ import java.util.List;
 @Table(name = "usuario")
 public class Usuario extends EntidadPersistente {
 
+    @Column(name = "nombre_completo")
+    private String nombreCompleto;
+
     @Column(name = "nombre_usuario")
     private String nombreUsuario;
 
@@ -33,6 +36,7 @@ public class Usuario extends EntidadPersistente {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "entidadJuridica_id", referencedColumnName = "id")
     private EntidadJuridica entidadJuridica;
+
 
     public void realizarEgreso(OperacionEgreso egreso,boolean esRevisor){
         if(esRevisor)
@@ -113,6 +117,18 @@ public class Usuario extends EntidadPersistente {
     }
 
     public Usuario(){}
+
+    public void setNombreCompleto(String nombreCompleto) {
+         this.nombreCompleto = nombreCompleto;
+    }
+
+    public void setEntidadJuridica(EntidadJuridica entidadJuridica) {
+        this.entidadJuridica = entidadJuridica;
+    }
+
+    public EntidadJuridica getEntidadJuridica() {
+        return entidadJuridica;
+    }
 
     /*public void vincularEgresosAIngreso(OperacionIngreso ingreso){
          ingreso.vincularEgresos(this.getEgresos());

@@ -10,12 +10,6 @@ public class Proveedor extends EntidadPersistente {
     @Column(name = "nombre")
     private String nombre;
 
-    @Column(name = "apellido")
-    private String apellido;
-
-    @Column(name = "dni")
-    private int DNI;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "direccion_id", referencedColumnName = "id")
     private DireccionPostal direccionPostal;
@@ -26,10 +20,8 @@ public class Proveedor extends EntidadPersistente {
     //getters y setters
 
 
-    public Proveedor(String nombre, String apellido, int DNI) {
+    public Proveedor(String nombre) {
         this.nombre = nombre;
-        this.apellido = apellido;
-        this.DNI = DNI;
     }
 
     public String getNombre() {
@@ -38,22 +30,6 @@ public class Proveedor extends EntidadPersistente {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public long getDNI() {
-        return DNI;
-    }
-
-    public void setDNI(int DNI) {
-        this.DNI = DNI;
     }
 
     public DireccionPostal getDireccionPostal() {

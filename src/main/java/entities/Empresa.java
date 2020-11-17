@@ -35,6 +35,13 @@ public class Empresa extends EntidadJuridica {
         this.cantEmpleados=cantEmpleados;
         this.categorizador=categorizador;
     }
+
+    public Empresa(String rubro, int ventasTotAnual, int cantEmpleados) {
+        this.rubro = rubro;
+        this.ventasTotAnual = ventasTotAnual;
+        this.cantEmpleados = cantEmpleados;
+    }
+
     //getters y setter
     public void setTipoCategorizacion(Categoria[] listaCategorias) throws CategorizacionException {
        this.tipoCategorizacion = categorizador.categorizarEmpresa(this,listaCategorias);
@@ -66,4 +73,6 @@ public class Empresa extends EntidadJuridica {
         return rubro;
     }
 
+    public Empresa() {
+    }
 }

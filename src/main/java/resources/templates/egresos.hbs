@@ -33,9 +33,11 @@
 				    <label>Acciones</label><span class="navbar-toggler-icon"></span>
 				  </button>
 				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-				    <a class="dropdown-item" href="/ingresos">Ingresos</a>
-				    <a class="dropdown-item" href="/egresos">Egresos</a>
-				    <a class="dropdown-item" href="/presupuestos">Presupuestos</a>
+                      <a class="dropdown-item" href="/ingresos">Ingresos</a>
+                      <a class="dropdown-item" href="/egresos">Egresos</a>
+                      <a class="dropdown-item" href="/presupuestos">Presupuestos</a>
+                      <a class="dropdown-item" href="/mensajes">Mensajes</a>
+                      <a class="dropdown-item" href="/categorias">Categorias/Criterios</a>
 				  </div>
 				</div>
  	 		</div>
@@ -127,21 +129,6 @@
 										<div class="form-group">
 									      <label for="usr">Nombre:</label>
 									      <input type="text" class="form-control" name="nombreProveedor" required>
-									    </div>
-									</div>
-
-									<div class="col">
-										<div class="form-group">
-									      <label for="pwd">Apellido:</label>
-									      <input type="text" class="form-control" name="apellidoProveedor" required>
-									    </div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col">
-										<div class="form-group">
-									      <label for="pwd">DNI/CUIL/CUIT:</label>
-									      <input type="text" class="form-control" name="dni" required>
 									    </div>
 									</div>
 								</div>
@@ -263,7 +250,7 @@
 										<div class="row">
 											<div class="col">
 												<div class="form-group">
-											      <label for="nombreProducto1">Producto:</label>
+											      <label for="nombreProducto1">Nombre:</label>
 											      <input type="text" class="form-control" name="nombreProducto1" required>
 											    </div>
 											</div>
@@ -271,6 +258,14 @@
 												<div class="form-group">
 											      <label for="descripcion1">Descripcion:</label>
 											      <input type="text" class="form-control" name="descripcion1" required>
+											    </div>
+											</div>
+											<div class="col">
+												<div class="form-group">
+											      <select class="custom-select" name="tipoArticulo" id="tipoArticulo">
+											      	<option>Producto</option>
+											      	<option>Servicio</option>
+											      </select>
 											    </div>
 											</div>
 											<div class="col">
@@ -284,7 +279,7 @@
 											<div class="col">
 												<div class="form-group">
 											      <label for="precio1">Importe por Unidad:</label>
-											      <input type="number" class="form-control" name="precio1" required>
+											      <input type="number" step="0.1" class="form-control" name="precio1" required>
 											    </div>
 											</div>
 										
@@ -339,7 +334,8 @@
 					      <td>{{fechaEgreso}}</td>
 					      <td>{{valorTotalOp}}</td>
 					      <td><input type="file" name="rutaDoc" accept=".pdf" onchange="cargarDocumento('{{id}}',this)">
-					      		<a href="'{{documentoComercial.rutaDoc}}'" download="Documento Comercial - '{{documentoComercial.identificadorDoc}}'">{{#if documentoComercial.rutaDoc}} Descargar Archivo{{else}}Documento Comercial no cargado{{/if}}</a></td>
+					      		<a href="'{{documentoComercial.rutaDoc}}'" download="Documento Comercial - '{{documentoComercial.identificadorDoc}}'"
+					      		 {{#unless documentoComercial.identificadorDoc}}disabled{{/unless}}>{{#if documentoComercial.rutaDoc}} Descargar Archivo{{else}}Documento Comercial no cargado{{/if}}</a></td>
 					      <td>
 							  <select class="custom-select">
 							    <option selected>Choose...</option>
@@ -414,7 +410,7 @@
 					'<div class="col">'+
 						'<div class="form-group">'+
 					      '<label for="pwd">Importe por Unidad:</label>'+
-					      '<input type="number" class="form-control" id="pwd" name="precio'+c+'" required>'+
+					      '<input type="number" step="0.1" class="form-control" id="pwd" name="precio'+c+'" required>'+
 					    '</div>'+
 					'</div>'+
 				'</div>'+ 

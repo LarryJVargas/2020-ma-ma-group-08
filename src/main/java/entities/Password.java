@@ -21,20 +21,16 @@ public class Password extends EntidadPersistente {
 
 
     public String verificarContra(String password) throws VerificadorException {
-        EsDeLas10kPeores validoDebilidad = new EsDeLas10kPeores();
-            validoDebilidad.validar(password);
+        /*EsDeLas10kPeores validoDebilidad = new EsDeLas10kPeores();
+            validoDebilidad.validar(password);*/
         CumpleLargoMinimo validoLongitud = new CumpleLargoMinimo();
             validoLongitud.validar(password);
         TieneCaracteresRepetidos validoRepeticion = new TieneCaracteresRepetidos();
             validoRepeticion.validar(password);
-        TieneUnNumero validoUnNumero = new TieneUnNumero();
-            validoUnNumero.validar(password);
-        TieneUnaMayuscula validoMayuscula = new TieneUnaMayuscula();
-            validoMayuscula.validar(password);
+        /*TieneUnNumero validoUnNumero = new TieneUnNumero();
+            validoUnNumero.validar(password);*/
         return pass;
     }
-
-
 
     public String getPass() {
         return pass;
@@ -55,12 +51,6 @@ public class Password extends EntidadPersistente {
         return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
     }
 
-    /*public boolean checkPass(String plainPassword, String hashedPassword) {
-        if (BCrypt.checkpw(plainPassword, hashedPassword))
-            return true;
-        else
-            return false;
-    }*/
 
     public Password(){}
 }

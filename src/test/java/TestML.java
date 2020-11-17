@@ -63,10 +63,9 @@ public class TestML {
         List<Pais> paises = servicioML.listadoDePaises();
         Pais pais = null;
         for (Pais p : paises) {
-            if (p.name.equals("Argentina")) {
-                pais = p;
-                System.out.printf(p.id);
-            }
+                System.out.printf(p.name);
+                System.out.printf("\n");
+
         }
     }
 }

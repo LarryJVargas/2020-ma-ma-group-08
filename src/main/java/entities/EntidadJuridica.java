@@ -14,10 +14,10 @@ public class EntidadJuridica extends EntidadPersistente {
     private String nombreFicticio;
 
     @Column(name = "razon_social")
-    private int razonSocial;
+    private String razonSocial;
 
     @Column(name = "cuit")
-    private int CUIT;
+    private String CUIT;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "direccion_id", referencedColumnName = "id")
@@ -28,6 +28,10 @@ public class EntidadJuridica extends EntidadPersistente {
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<EntidadBase> entidadesBase;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "organizacion_id",referencedColumnName = "id")
+    private Organizacion organizacion;
 
     public EntidadJuridica() {
     }
@@ -47,19 +51,19 @@ public class EntidadJuridica extends EntidadPersistente {
         this.nombreFicticio = nombreFicticio;
     }
 
-    public int getRazonSocial() {
+    public String getRazonSocial() {
         return razonSocial;
     }
 
-    public void setRazonSocial(int razonSocial) {
+    public void setRazonSocial(String razonSocial) {
         this.razonSocial = razonSocial;
     }
 
-    public int getCUIT() {
+    public String getCUIT() {
         return CUIT;
     }
 
-    public void setCUIT(int CUIT) {
+    public void setCUIT(String CUIT) {
         this.CUIT = CUIT;
     }
 
@@ -85,5 +89,13 @@ public class EntidadJuridica extends EntidadPersistente {
 
     public void setEntidadesBase(EntidadBase[] entidadesBase) {
         this.entidadesBase = Arrays.asList(entidadesBase);
+    }
+
+    public Organizacion getOrganizacion() {
+        return organizacion;
+    }
+
+    public void setOrganizacion(Organizacion organizacion) {
+        this.organizacion = organizacion;
     }
 }

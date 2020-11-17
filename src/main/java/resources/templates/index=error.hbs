@@ -31,6 +31,7 @@
 			border-right: 1px solid black;
 		}
 	</style>
+	
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-dark bg-dark fixed-top">
@@ -44,10 +45,13 @@
 		<div class="col-4 info">
 			<div class="container">
 				<img class="img-fluid img-thumbnail" src="/img/logo-gesoc.png" alt="">
-				<img class="img-fluid img-thumbnail" src="/img/tipito.png" alt="">
 
 			</div>
 		</div>
+
+		
+			
+
 		<div class="col-7 login">
 			<div class="container">
 				<form action="/login" method="post" accept-charset="utf-8">
@@ -59,6 +63,7 @@
 				      <label for="password">Contra</label>
 				      <input type="password" class="form-control" name="pass" id="pass">
 				    </div>
+				    <div class="malResultado" id="malResultado">El usuario y/o la contraseña son incorrectas, vuelva a introducirlas</div>
 				    <button type="submit" name="iniciar_sesion" id="iniciar_sesion" class="btn btn-primary">Ingresar</button>
 				</form>
 			</div>

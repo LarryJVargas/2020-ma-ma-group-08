@@ -43,7 +43,7 @@ public class OperacionEgreso extends EntidadPersistente{
     private List<Presupuesto> presupuestosRequeridos;
 
     @Column(name = "cant_presupuestos_requeridos")
-    private int cantPresupuestosRequeridos = 1;
+    private int cantPresupuestosRequeridos = 0;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "proveedor_id", referencedColumnName = "id")
